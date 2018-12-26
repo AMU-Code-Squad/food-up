@@ -8,7 +8,26 @@ var config = {
 	databaseURL: "https://food-up-amu.firebaseio.com",
 	storageBucket: "food-up-amu.appspot.com",
   };
-  firebase.initializeApp(config);
+firebase.initializeApp(config);
+
+const admin = require('firebase-admin');
+
+var serviceAccount = require('key.json');
+
+admin.initializeApp({
+credential: admin.credential.cert(serviceAccount)
+});
+
+var db = admin.firestore();
+  
+var docRef = db.collection('users').doc('alovelace');
+
+var setAda = docRef.set({
+  first: 'Ada',
+  last: 'Lovelace',
+  born: 1815
+});
+  
   
 
 app.get("/", function(req, res){
