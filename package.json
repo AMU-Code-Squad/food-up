@@ -4,7 +4,8 @@
   "description": "A social networking site for foodies",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "author": "AMU Code Squad",
   "license": "ISC",
