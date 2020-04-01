@@ -16,4 +16,4 @@ First a simple prototype is to be made which has the following simple capabiliti
 - You need NodeJS installed
 - Clone the repository
 - run ``` npm install ``` in the home directory
-- to test locally, run ``` nodem app.js ``` and view the site on localhost:3000
+- to test locally, run ``` nodemon app.js ``` and view the site on localhost:3000
