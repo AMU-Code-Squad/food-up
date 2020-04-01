@@ -1,0 +1,14 @@
+<%- include("partials/header") %>
+
+<h1>Create a new Food Post</h1>
+
+<form action="/FoodUp" method="POST">
+    <input type="text" placeholder="name" name="name">
+    <input type="text" placeholder="image url" name="image">
+    <button>Submit</button>
+</form>
+
+<a href="/FoodUp">Go back</a>
+
+<%- include("partials/footer") %> 
+
