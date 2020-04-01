@@ -10,9 +10,9 @@ app.get("/", function(req, res){
 
 app.get("/FoodUp", function(req, res){
 	let foodData = [
-		{name: "Cheese Burger", image: "https://pixabay.com/get/57e2d64b4856ab14f1dc8460cf2934771438dbf85254794c72297ed09f4c_340.jpg"},
-		{name: "Chesse Pizza", image: "https://pixabay.com/get/57e2d64a4a55ab14f1dc8460cf2934771438dbf85254794c72297ed19445_340.jpg"},
-		{name: "Cheese Sandwich", image: "https://pixabay.com/get/57e8d3444852a414f1dc8460cf2934771438dbf85254794c72297ed19f4f_340.jpg"}
+		{name: "Cheese Burger", image: "https://live.staticflickr.com/4126/4984075705_c83583e4ed_b.jpg"},
+		{name: "Chesse Pizza", image: "https://farm5.staticflickr.com/4008/4393075240_2066a34018_b.jpg"},
+		{name: "Cheese Sandwich", image: "https://live.staticflickr.com/2881/11455954055_4a0573111b_b.jpg"}
 	] 
 	res.render("food", {foodData: foodData});
 })
