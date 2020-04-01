@@ -1,0 +1,10 @@
+<h1>This is the Food Up page</h1>
+
+<ul>
+    <% for( let i = 0; i < foodData.length; i++ ) { %>
+        <div>
+            <li><%= foodData[i]["name"]%></li>
+            <img src="<%= foodData[i]["image"] %>">
+        </div>
+    <% } %>
+</ul>
