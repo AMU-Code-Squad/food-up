@@ -1,25 +1,25 @@
 <%- include("partials/header") %> 
 
 <div class="container">
-    
-    <div class="jumbotron">
-        <h1>This is the Food Up page</h1>     
-        <a class="btn btn-md btn-success" href="/FoodUp/new">Add new Post</a>        
-    </div>
+    <header class="jumbotron">
+        <div class="container">
+            <h1>This is the Food Up page</h1>     
+            <a class="btn btn-lg btn-success" href="/FoodUp/new">Add new Post</a> 
+        </div>       
+    </header>
 
     <div class="row" style="display: flex; flex-wrap: wrap;">
-            <% for( let i = 0; i < foodData.length; i++ ) { %>
-                <div class="col-md-4 col-sm-6">
-                    <div class="card border-dark mb-3" style="width: 18rem;">
-                        <img class="card-img-top" src="<%= foodData[i]["image"]%> alt="Card image cap">
-                        <div class="card-body">
-                          <h5 class="card-title"><%= foodData[i]["name"] %> </h5>
-                        </div>
+        <% for( let i = 0; i < foodData.length; i++ ) { %>
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="thumbnail">
+                    <img class="card-img-top" src="<%= foodData[i]["image"]%> alt="Card image cap">
+                    <div class="caption">
+                        <h4><%= foodData[i]["name"] %> </h4>
                     </div>
                 </div>
-            <% } %>
+            </div>
+        <% } %>
     </div>
- 
 </div>
 
 <%- include("partials/footer") %>
