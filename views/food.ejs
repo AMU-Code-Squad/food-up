@@ -1,16 +1,25 @@
 <%- include("partials/header") %> 
 
-<h1>This is the Food Up page</h1>
+<div class="container">
+    
+    <div class="jumbotron">
+        <h1>This is the Food Up page</h1>     
+        <a class="btn btn-md btn-success" href="/FoodUp/new">Add new Post</a>        
+    </div>
 
-<a href="/FoodUp/new">Add new Food Post</a>
+    <div class="row" style="display: flex; flex-wrap: wrap;">
+            <% for( let i = 0; i < foodData.length; i++ ) { %>
+                <div class="col-md-4 col-sm-6">
+                    <div class="card border-dark mb-3" style="width: 18rem;">
+                        <img class="card-img-top" src="<%= foodData[i]["image"]%> alt="Card image cap">
+                        <div class="card-body">
+                          <h5 class="card-title"><%= foodData[i]["name"] %> </h5>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+    </div>
+ 
+</div>
 
-<ul>
-    <% for( let i = 0; i < foodData.length; i++ ) { %>
-        <div>
-            <li><%= foodData[i]["name"]%></li>
-            <img src="<%= foodData[i]["image"] %>">
-        </div>
-    <% } %>
-</ul>
-
-<%- include("partials/footer") %> 
+<%- include("partials/footer") %>
