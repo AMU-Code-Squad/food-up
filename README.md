@@ -15,5 +15,6 @@ First a simple prototype is to be made which has the following simple capabiliti
 ## Setup
 - You need NodeJS installed
 - Clone the repository
+- run ``` sudo npm install -g --force nodemon ```
 - run ``` npm install ``` in the home directory
 - to test locally, run ``` nodemon app.js ``` and view the site on localhost:3000
