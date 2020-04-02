@@ -4,7 +4,11 @@ let bodyParser = require("body-parser")
 let foodData = [
 	{name: "Cheese Burger", image: "https://live.staticflickr.com/4126/4984075705_c83583e4ed_b.jpg"},
 	{name: "Chesse Pizza", image: "https://farm5.staticflickr.com/4008/4393075240_2066a34018_b.jpg"},
-	{name: "Cheese Sandwich", image: "https://live.staticflickr.com/2881/11455954055_4a0573111b_b.jpg"}
+	{name: "Cheese Sandwich", image: "https://live.staticflickr.com/2881/11455954055_4a0573111b_b.jpg"},
+	{name: "Chesse Pizza", image: "https://farm5.staticflickr.com/4008/4393075240_2066a34018_b.jpg"},
+	{name: "Cheese Sandwich", image: "https://live.staticflickr.com/2881/11455954055_4a0573111b_b.jpg"},
+	{name: "Cheese Burger", image: "https://live.staticflickr.com/4126/4984075705_c83583e4ed_b.jpg"},
+	{name: "Chesse Pizza", image: "https://farm5.staticflickr.com/4008/4393075240_2066a34018_b.jpg"},
 ] 
 
 app.use(bodyParser.urlencoded({extended: true}))
