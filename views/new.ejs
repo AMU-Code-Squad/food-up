@@ -1,14 +1,28 @@
 <%- include("partials/header") %>
 
-<h1>Create a new Food Post</h1>
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center;">Create a new Food Post</h1>
 
-<form action="/FoodUp" method="POST">
-    <input type="text" placeholder="name" name="name">
-    <input type="text" placeholder="image url" name="image">
-    <button>Submit</button>
-</form>
+        <div style=" width: 30%; margin: auto auto;">
+            <form action="/FoodUp" method="POST">
+                <div class="form-group">
+                    <input class="form-control"type="text" placeholder="name" name="name">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="image url" name="image">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit</button>
+                </div>
+            </form>
+            <a href="/FoodUp">Go back</a>
+        </div>
 
-<a href="/FoodUp">Go back</a>
+         
+    </div>
+</div>
+
 
 <%- include("partials/footer") %> 
 
