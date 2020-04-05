@@ -57,7 +57,7 @@ app.get("/FoodUp", function(req, res){
 		if(err){
 			console.log(err)
 		}else{
-			res.render("food", {foodData: foodData});
+			res.render("index", {foodData: foodData});
 		}
 	})
 })
