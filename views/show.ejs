@@ -1,4 +1,8 @@
-<h1>This is the show template</h1>
+<%- include("partials/header") %>
 
-<p><%= foundFoodData.name %> </p>
-<p><%= foundFoodData.description %> </p>
+<h1><%= foundFoodData.name %></h1>
+
+<img src="<%= foundFoodData.image %> " alt="">
+<h3><%= foundFoodData.description%></h4>
+
+<%- include("partials/footer") %>
