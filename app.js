@@ -80,6 +80,16 @@ app.get("/FoodUp/new", function(req, res){
 	res.render("new")
 })
 
+app.get("/FoodUp/:id", function(req, res){
+	foodData.findById(req.params.id, function(err, foundFoodData){
+		if(err){
+			console.log(err)
+		} else{
+			res.render("show", {foundFoodData: foundFoodData})
+		}
+	})
+})
+
 app.listen(process.env.PORT || 3000, function(){
 	console.log("Food up Server Started at PORT: 3000");
 });
