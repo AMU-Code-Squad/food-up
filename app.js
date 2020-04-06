@@ -18,6 +18,7 @@ app.set("view engine", "ejs")
 
 let foodDataSchema = new mongoose.Schema({
 	name: String,
+	description: String,
 	image: String,
 })
 
@@ -64,8 +65,13 @@ app.get("/FoodUp", function(req, res){
 
 app.post("/FoodUp", function(req, res){
 	let name = req.body.name
+	let description = req.body.description
 	let image = req.body.image
-	let newfoodData = {name: name, image:  image}
+	let newfoodData = {
+		name: name, 
+		description: description, 
+		image:  image
+	}
 	// foodData.push(newfoodData)
 	foodData.create(newfoodData, function(err, newfoodData){
 		if(err){
