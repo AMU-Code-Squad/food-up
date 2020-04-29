@@ -57,10 +57,11 @@ app.get("/FoodUp/new", function(req, res){
 })
 
 app.get("/FoodUp/:id", function(req, res){
-	foodData.findById(req.params.id, function(err, foundFoodData){
+	foodData.findById(req.params.id).populate("comments").exec(function(err, foundFoodData){
 		if(err){
 			console.log(err)
 		} else{
+			console.log(foundFoodData)
 			res.render("show", {foundFoodData: foundFoodData})
 		}
 	})
