@@ -3,7 +3,9 @@ let app = express();
 let bodyParser = require("body-parser")
 let mongoose = require("mongoose")
 let foodData = require("./models/foodup")
+let seedDB = require("./seeds")
 
+seedDB()
 mongoose.connect(
 	"mongodb://localhost:27017/foodup",
 	{
