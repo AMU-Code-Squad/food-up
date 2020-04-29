@@ -5,6 +5,6 @@ let commentSchema = new mongoose.Schema({
     author: String
 });
  
-let Comment = mongoose.model("Comment", foodDataSchema)
+let Comment = mongoose.model("Comment", commentSchema)
 
 module.exports = Comment
