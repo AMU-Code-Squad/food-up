@@ -3,6 +3,13 @@
 <h1><%= foundFoodData.name %></h1>
 
 <img src="<%= foundFoodData.image %> " alt="">
-<h3><%= foundFoodData.description%></h4>
+<h4><%= foundFoodData.description%></h4>
+
+<% foundFoodData.comments.forEach(function(comment) { %>
+    <p>
+        <strong><%= comment.author %> </strong>-
+        <%= comment.text %> 
+    </p>       
+<% }) %>
 
 <%- include("partials/footer") %>
