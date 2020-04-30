@@ -28,7 +28,7 @@ app.get("/FoodUp", function(req, res){
 		if(err){
 			console.log(err)
 		}else{
-			res.render("index", {foodData: foodData});
+			res.render("food-up/index", {foodData: foodData});
 		}
 	})
 })
@@ -53,7 +53,7 @@ app.post("/FoodUp", function(req, res){
 })
 
 app.get("/FoodUp/new", function(req, res){
-	res.render("new")
+	res.render("food-up/new")
 })
 
 app.get("/FoodUp/:id", function(req, res){
@@ -62,7 +62,7 @@ app.get("/FoodUp/:id", function(req, res){
 			console.log(err)
 		} else{
 			console.log(foundFoodData)
-			res.render("show", {foundFoodData: foundFoodData})
+			res.render("food-up/show", {foundFoodData: foundFoodData})
 		}
 	})
 })
