@@ -3,6 +3,7 @@ let app = express();
 let bodyParser = require("body-parser")
 let mongoose = require("mongoose")
 let foodData = require("./models/foodup")
+let Comment = require("./models/comment")
 let seedDB = require("./seeds")
 
 seedDB()
@@ -63,6 +64,36 @@ app.get("/FoodUp/:id", function(req, res){
 		} else{
 			console.log(foundFoodData)
 			res.render("food-up/show", {foundFoodData: foundFoodData})
+		}
+	})
+})
+
+app.get("/FoodUp/:id/comments/new", function(req, res){
+	foodData.findById(req.params.id, function(err, foodData){
+		if(err){
+			console.log(err)
+		} else{
+			res.render("comments/new", {foodData: foodData})
+		}
+	})
+})
+
+app.post("/FoodUp/:id/comments", function(req, res){
+	foodData.findById(req.params.id, function(err, foodData){
+		if(err){
+			console.log(err)
+			res.redirect("/FoodUp")
+		}
+		else{
+			Comment.create(req.body.comment, function(err, comment){
+				if(err){
+					console.log(err)
+				} else{
+					foodData.comments.push(comment)
+					foodData.save()
+					res.redirect("/FoodUp/" + foodData.id)
+				}
+			})
 		}
 	})
 })
