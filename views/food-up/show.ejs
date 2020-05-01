@@ -5,6 +5,8 @@
 <img src="<%= foundFoodData.image %> " alt="">
 <h4><%= foundFoodData.description%></h4>
 
+<a class="btn btn-success" href="/FoodUp/<%= foundFoodData.id %>/comments/new ">Add new comment</a>
+
 <% foundFoodData.comments.forEach(function(comment) { %>
     <p>
         <strong><%= comment.author %> </strong>-
