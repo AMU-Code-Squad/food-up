@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
 const passport = require("passport")
+const expressSession = require("express-session")
 const LocalStrategy = require("passport-local")
 const foodData = require("./models/foodup")
 const Comment = require("./models/comment")
@@ -114,6 +115,23 @@ app.post("/FoodUp/:id/comments", function(req, res){
 	})
 })
 
+app.get("/register", function(req, res){
+	res.render("register")
+})
+
+app.post("/register", function(req, res){
+	let newUser = new User({username: req.body.username})
+    User.register(newUser, req.body.password, function(err, user){
+        if(err){
+			console.log(err)
+            return res.render("register")
+        }
+        passport.authenticate("local")(req, res, function(){
+            res.redirect("/FoodUp")
+        })
+    })
+})
+
 app.listen(process.env.PORT || 3000, function(){
-	console.log("Food up Server Started at PORT: 3000");
-});
+	console.log("Food up Server Started at PORT: 3000")
+})
