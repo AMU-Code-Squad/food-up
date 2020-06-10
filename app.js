@@ -2,8 +2,11 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
+const passport = require("passport")
+const LocalStrategy = require("passport-local")
 const foodData = require("./models/foodup")
 const Comment = require("./models/comment")
+const User = require("./models/user")
 const seedDB = require("./seeds")
 
 seedDB()
