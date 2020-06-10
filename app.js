@@ -1,10 +1,10 @@
-let express = require("express");
-let app = express();
-let bodyParser = require("body-parser")
-let mongoose = require("mongoose")
-let foodData = require("./models/foodup")
-let Comment = require("./models/comment")
-let seedDB = require("./seeds")
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser")
+const mongoose = require("mongoose")
+const foodData = require("./models/foodup")
+const Comment = require("./models/comment")
+const seedDB = require("./seeds")
 
 seedDB()
 mongoose.connect(
@@ -35,10 +35,10 @@ app.get("/FoodUp", function(req, res){
 })
 
 app.post("/FoodUp", function(req, res){
-	let name = req.body.name
-	let description = req.body.description
-	let image = req.body.image
-	let newfoodData = {
+	const name = req.body.name
+	const description = req.body.description
+	const image = req.body.image
+	const newfoodData = {
 		name: name, 
 		description: description, 
 		image:  image

@@ -1,6 +1,6 @@
-let mongoose = require("mongoose")
+const mongoose = require("mongoose")
 
-let foodDataSchema = new mongoose.Schema({
+const foodDataSchema = new mongoose.Schema({
 	name: String,
 	description: String,
     image: String,
@@ -12,6 +12,6 @@ let foodDataSchema = new mongoose.Schema({
      ]
 })
 
-let foodData = mongoose.model("foodData", foodDataSchema)
+const foodData = mongoose.model("foodData", foodDataSchema)
 
 module.exports = foodData
