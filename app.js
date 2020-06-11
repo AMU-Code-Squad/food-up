@@ -142,6 +142,11 @@ app.post("/login", passport.authenticate("local", {
 }), function(req, res){
 })
 
+app.get("/logout", function(req, res){
+    req.logout()
+    res.redirect("FoodUp")
+})
+
 app.listen(process.env.PORT || 3000, function(){
 	console.log("Food up Server Started at PORT: 3000")
 })
