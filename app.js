@@ -2,8 +2,12 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
+const passport = require("passport")
+const expressSession = require("express-session")
+const LocalStrategy = require("passport-local")
 const foodData = require("./models/foodup")
 const Comment = require("./models/comment")
+const User = require("./models/user")
 const seedDB = require("./seeds")
 
 seedDB()
@@ -17,8 +21,28 @@ mongoose.connect(
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static(__dirname + '/public'))
+app.use(expressSession({
+    secret: "slfsjfhkdshgkfdsh",
+    resave: false,
+    saveUninitialized: false
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+passport.use(new LocalStrategy(User.authenticate()))
+
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
 
 app.set("view engine", "ejs")
+
+//middleware to give access to req.user to every route
+//this should be set only after passport call
+app.use(function(req, res, next){
+	res.locals.currentUser = req.user;
+	next();
+})
 
 app.get("/", function(req, res){
 	res.render("landing");
@@ -34,7 +58,7 @@ app.get("/FoodUp", function(req, res){
 	})
 })
 
-app.post("/FoodUp", function(req, res){
+app.post("/FoodUp", isLoggedIn, function(req, res){
 	const name = req.body.name
 	const description = req.body.description
 	const image = req.body.image
@@ -53,7 +77,7 @@ app.post("/FoodUp", function(req, res){
 	})
 })
 
-app.get("/FoodUp/new", function(req, res){
+app.get("/FoodUp/new", isLoggedIn, function(req, res){
 	res.render("food-up/new")
 })
 
@@ -68,7 +92,7 @@ app.get("/FoodUp/:id", function(req, res){
 	})
 })
 
-app.get("/FoodUp/:id/comments/new", function(req, res){
+app.get("/FoodUp/:id/comments/new", isLoggedIn, function(req, res){
 	foodData.findById(req.params.id, function(err, foodData){
 		if(err){
 			console.log(err)
@@ -78,7 +102,7 @@ app.get("/FoodUp/:id/comments/new", function(req, res){
 	})
 })
 
-app.post("/FoodUp/:id/comments", function(req, res){
+app.post("/FoodUp/:id/comments", isLoggedIn,function(req, res){
 	foodData.findById(req.params.id, function(err, foodData){
 		if(err){
 			console.log(err)
@@ -98,6 +122,45 @@ app.post("/FoodUp/:id/comments", function(req, res){
 	})
 })
 
+app.get("/register", function(req, res){
+	res.render("register")
+})
+
+app.post("/register", function(req, res){
+	let newUser = new User({username: req.body.username})
+    User.register(newUser, req.body.password, function(err, user){
+        if(err){
+			console.log(err)
+            return res.render("register")
+        }
+        passport.authenticate("local")(req, res, function(){
+            res.redirect("/FoodUp")
+        })
+    })
+})
+
+app.get("/login", function(req, res){
+    res.render("login")
+})
+
+app.post("/login", passport.authenticate("local", {
+    successRedirect: "/FoodUp",
+	failureRedirect: "/login"
+}), function(req, res){
+})
+
+app.get("/logout", function(req, res){
+    req.logout()
+    res.redirect("FoodUp")
+})
+
+function isLoggedIn(req, res, next){
+    if(req.isAuthenticated()){
+        return next()
+    }
+    res.redirect("/login")
+}
+
 app.listen(process.env.PORT || 3000, function(){
-	console.log("Food up Server Started at PORT: 3000");
-});
+	console.log("Food up Server Started at PORT: 3000")
+})
