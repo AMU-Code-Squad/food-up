@@ -58,7 +58,7 @@ app.get("/FoodUp", function(req, res){
 	})
 })
 
-app.post("/FoodUp", function(req, res){
+app.post("/FoodUp", isLoggedIn, function(req, res){
 	const name = req.body.name
 	const description = req.body.description
 	const image = req.body.image
@@ -77,7 +77,7 @@ app.post("/FoodUp", function(req, res){
 	})
 })
 
-app.get("/FoodUp/new", function(req, res){
+app.get("/FoodUp/new", isLoggedIn, function(req, res){
 	res.render("food-up/new")
 })
 
