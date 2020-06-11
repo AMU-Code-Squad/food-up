@@ -37,6 +37,13 @@ passport.deserializeUser(User.deserializeUser())
 
 app.set("view engine", "ejs")
 
+//middleware to give access to req.user to every route
+//this should be set only after passport call
+app.use(function(req, res, next){
+	res.locals.currentUser = req.user;
+	next();
+})
+
 app.get("/", function(req, res){
 	res.render("landing");
 })
