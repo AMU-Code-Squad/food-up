@@ -85,7 +85,7 @@ app.get("/FoodUp/:id", function(req, res){
 	})
 })
 
-app.get("/FoodUp/:id/comments/new", function(req, res){
+app.get("/FoodUp/:id/comments/new", isLoggedIn, function(req, res){
 	foodData.findById(req.params.id, function(err, foodData){
 		if(err){
 			console.log(err)
@@ -146,6 +146,13 @@ app.get("/logout", function(req, res){
     req.logout()
     res.redirect("FoodUp")
 })
+
+function isLoggedIn(req, res, next){
+    if(req.isAuthenticated()){
+        return next()
+    }
+    res.redirect("/login")
+}
 
 app.listen(process.env.PORT || 3000, function(){
 	console.log("Food up Server Started at PORT: 3000")
