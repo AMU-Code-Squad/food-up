@@ -95,7 +95,7 @@ app.get("/FoodUp/:id/comments/new", isLoggedIn, function(req, res){
 	})
 })
 
-app.post("/FoodUp/:id/comments", function(req, res){
+app.post("/FoodUp/:id/comments", isLoggedIn,function(req, res){
 	foodData.findById(req.params.id, function(err, foodData){
 		if(err){
 			console.log(err)
