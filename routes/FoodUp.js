@@ -22,10 +22,15 @@ router.post("/FoodUp", isLoggedIn, function(req, res){
 	const name = req.body.name
 	const description = req.body.description
 	const image = req.body.image
+	const author = {
+		id: req.user._id,
+		username: req.user.username
+	}
 	const newfoodData = {
 		name: name, 
 		description: description, 
-		image:  image
+		image:  image,
+		author: author
 	}
 	// foodData.push(newfoodData)
 	foodData.create(newfoodData, function(err, newfoodData){
