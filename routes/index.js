@@ -3,10 +3,13 @@ const router  = express.Router()
 const passport = require("passport")
 const User = require("../models/user")
 
+//Index route//
 router.get("/", function(req, res){
 	res.render("landing");
 })
 
+
+//Auth routes//
 router.get("/register", function(req, res){
 	res.render("register")
 })

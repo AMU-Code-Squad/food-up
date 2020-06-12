@@ -2,6 +2,8 @@ const express = require("express")
 const router  = express.Router()
 const foodData = require("../models/foodup")
 
+
+//FoodUp route//
 router.get("/FoodUp", function(req, res){
 	foodData.find({}, function(err, foodData){
 		if(err){
@@ -10,6 +12,10 @@ router.get("/FoodUp", function(req, res){
 			res.render("food-up/index", {foodData: foodData});
 		}
 	})
+})
+
+router.get("/FoodUp/new", isLoggedIn, function(req, res){
+	res.render("food-up/new")
 })
 
 router.post("/FoodUp", isLoggedIn, function(req, res){
@@ -31,10 +37,6 @@ router.post("/FoodUp", isLoggedIn, function(req, res){
 	})
 })
 
-router.get("/FoodUp/new", isLoggedIn, function(req, res){
-	res.render("food-up/new")
-})
-
 router.get("/FoodUp/:id", function(req, res){
 	foodData.findById(req.params.id).populate("comments").exec(function(err, foundFoodData){
 		if(err){
@@ -46,6 +48,8 @@ router.get("/FoodUp/:id", function(req, res){
 	})
 })
 
+
+//isLoggedIn middleware
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next()

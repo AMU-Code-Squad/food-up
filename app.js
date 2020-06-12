@@ -1,3 +1,4 @@
+//Requiring Dependencies//
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser")
@@ -10,11 +11,14 @@ const Comment = require("./models/comment")
 const User = require("./models/user")
 const seedDB = require("./seeds")
 
+//Requiring Routes//
 const commentRoutes = require("./routes/comments")
 const foodUpRoutes = require("./routes/FoodUp")
 const indexRoute = require("./routes/index")
 
 seedDB()
+
+//Using Dependencies
 mongoose.connect(
 	"mongodb://localhost:27017/foodup",
 	{
@@ -31,6 +35,8 @@ app.use(expressSession({
     saveUninitialized: false
 }))
 
+
+//Initializing Passport//
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -46,6 +52,7 @@ app.use(function(req, res, next){
 	next();
 })
 
+//Using Routes//
 app.use(indexRoute)
 app.use(foodUpRoutes)
 app.use(commentRoutes)

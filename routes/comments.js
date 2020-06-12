@@ -3,6 +3,8 @@ const router  = express.Router()
 const foodData = require("../models/foodup")
 const Comment = require("../models/comment")
 
+
+//Comments route//
 router.get("/FoodUp/:id/comments/new", isLoggedIn, function(req, res){
 	foodData.findById(req.params.id, function(err, foodData){
 		if(err){
@@ -33,6 +35,7 @@ router.post("/FoodUp/:id/comments", isLoggedIn,function(req, res){
 	})
 })
 
+//isLoggedIn Middleware
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next()
