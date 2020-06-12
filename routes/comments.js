@@ -26,6 +26,9 @@ router.post("/FoodUp/:id/comments", isLoggedIn,function(req, res){
 				if(err){
 					console.log(err)
 				} else{
+					comment.author.id = req.user._id
+					comment.author.username = req.user.username
+					comment.save()
 					foodData.comments.push(comment)
 					foodData.save()
 					res.redirect("/FoodUp/" + foodData.id)
