@@ -10,6 +10,10 @@ const Comment = require("./models/comment")
 const User = require("./models/user")
 const seedDB = require("./seeds")
 
+const commentRoutes = require("./routes/comments")
+const foodUpRoutes = require("./routes/FoodUp")
+const indexRoute = require("./routes/index")
+
 seedDB()
 mongoose.connect(
 	"mongodb://localhost:27017/foodup",
@@ -37,129 +41,14 @@ passport.deserializeUser(User.deserializeUser())
 
 app.set("view engine", "ejs")
 
-//middleware to give access to req.user to every route
-//this should be set only after passport call
 app.use(function(req, res, next){
 	res.locals.currentUser = req.user;
 	next();
 })
 
-app.get("/", function(req, res){
-	res.render("landing");
-})
-
-app.get("/FoodUp", function(req, res){
-	foodData.find({}, function(err, foodData){
-		if(err){
-			console.log(err)
-		}else{
-			res.render("food-up/index", {foodData: foodData});
-		}
-	})
-})
-
-app.post("/FoodUp", isLoggedIn, function(req, res){
-	const name = req.body.name
-	const description = req.body.description
-	const image = req.body.image
-	const newfoodData = {
-		name: name, 
-		description: description, 
-		image:  image
-	}
-	// foodData.push(newfoodData)
-	foodData.create(newfoodData, function(err, newfoodData){
-		if(err){
-			console.log(err)
-		} else{
-			res.redirect("/FoodUp")
-		}
-	})
-})
-
-app.get("/FoodUp/new", isLoggedIn, function(req, res){
-	res.render("food-up/new")
-})
-
-app.get("/FoodUp/:id", function(req, res){
-	foodData.findById(req.params.id).populate("comments").exec(function(err, foundFoodData){
-		if(err){
-			console.log(err)
-		} else{
-			console.log(foundFoodData)
-			res.render("food-up/show", {foundFoodData: foundFoodData})
-		}
-	})
-})
-
-app.get("/FoodUp/:id/comments/new", isLoggedIn, function(req, res){
-	foodData.findById(req.params.id, function(err, foodData){
-		if(err){
-			console.log(err)
-		} else{
-			res.render("comments/new", {foodData: foodData})
-		}
-	})
-})
-
-app.post("/FoodUp/:id/comments", isLoggedIn,function(req, res){
-	foodData.findById(req.params.id, function(err, foodData){
-		if(err){
-			console.log(err)
-			res.redirect("/FoodUp")
-		}
-		else{
-			Comment.create(req.body.comment, function(err, comment){
-				if(err){
-					console.log(err)
-				} else{
-					foodData.comments.push(comment)
-					foodData.save()
-					res.redirect("/FoodUp/" + foodData.id)
-				}
-			})
-		}
-	})
-})
-
-app.get("/register", function(req, res){
-	res.render("register")
-})
-
-app.post("/register", function(req, res){
-	let newUser = new User({username: req.body.username})
-    User.register(newUser, req.body.password, function(err, user){
-        if(err){
-			console.log(err)
-            return res.render("register")
-        }
-        passport.authenticate("local")(req, res, function(){
-            res.redirect("/FoodUp")
-        })
-    })
-})
-
-app.get("/login", function(req, res){
-    res.render("login")
-})
-
-app.post("/login", passport.authenticate("local", {
-    successRedirect: "/FoodUp",
-	failureRedirect: "/login"
-}), function(req, res){
-})
-
-app.get("/logout", function(req, res){
-    req.logout()
-    res.redirect("FoodUp")
-})
-
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
-        return next()
-    }
-    res.redirect("/login")
-}
+app.use(indexRoute)
+app.use(foodUpRoutes)
+app.use(commentRoutes)
 
 app.listen(process.env.PORT || 3000, function(){
 	console.log("Food up Server Started at PORT: 3000")
