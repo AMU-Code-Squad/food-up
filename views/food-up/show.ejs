@@ -24,6 +24,11 @@
                         <em>Submitted by <%= foundFoodData.author.username %> </em>
                     </p>
                     <a class="btn btn-warning" href="/FoodUp/<%= foundFoodData.id %>/edit ">Edit!</a>
+                    <hr>
+                    <form action="/FoodUp/<%= foundFoodData.id %>?_method=DELETE" method="POST">
+                        <button>Delete</button>
+                    </form>
+                    <br>
                 </div>
             </div>
             <div class="well">

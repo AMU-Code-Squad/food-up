@@ -48,7 +48,6 @@ router.get("/FoodUp/:id", function(req, res){
 		if(err){
 			console.log(err)
 		} else{
-			console.log(foundFoodData)
 			res.render("food-up/show", {foundFoodData: foundFoodData})
 		}
 	})
@@ -81,6 +80,16 @@ router.put("/FoodUp/:id", function(req, res){
     })
 })
 
+//DELETE ROUTE
+router.delete("/FoodUp/:id",isLoggedIn, function(req, res){
+    foodData.findByIdAndRemove(req.params.id, function(err){
+        if(err){
+            console.log(err)
+        } else{
+            res.redirect("/FoodUp")
+        }
+    })
+})
 
 //isLoggedIn middleware
 function isLoggedIn(req, res, next){
