@@ -2,7 +2,6 @@ const express = require("express")
 const router  = express.Router()
 const foodData = require("../models/foodup")
 
-
 //FoodUp route//
 //SHOW route//
 router.get("/FoodUp", function(_req, res){
@@ -54,7 +53,7 @@ router.get("/FoodUp/:id", function(req, res){
 })
 
 //EDIT food route//
-router.get("/FoodUp/:id/edit",isLoggedIn, function(req, res){
+router.get("/FoodUp/:id/edit",isFoodPostOnwer, function(req, res){
     foodData.findById(req.params.id, function(err, foundFoodData){
 		if(err){
 			res.redirect("/FoodUp/" + foodData.id)
@@ -65,7 +64,7 @@ router.get("/FoodUp/:id/edit",isLoggedIn, function(req, res){
 })
 
 //UPDATE ROUTE//
-router.put("/FoodUp/:id", function(req, res){
+router.put("/FoodUp/:id",isFoodPostOnwer, function(req, res){
 	const updatedFoodData = {
 		name: req.body.name,
 		description: req.body.description,
@@ -81,7 +80,7 @@ router.put("/FoodUp/:id", function(req, res){
 })
 
 //DELETE ROUTE
-router.delete("/FoodUp/:id",isLoggedIn, function(req, res){
+router.delete("/FoodUp/:id",isFoodPostOnwer, function(req, res){
     foodData.findByIdAndRemove(req.params.id, function(err){
         if(err){
             console.log(err)
@@ -97,6 +96,26 @@ function isLoggedIn(req, res, next){
         return next()
     }
     res.redirect("/login")
+}
+
+//isFoodPostOwner middleware
+function isFoodPostOnwer(req, res, next){
+	if(req.isAuthenticated()){
+		foodData.findById(req.params.id, function(err, foundFoodData){
+			if(err){
+				res.redirect("back")
+			} else{
+				if(foundFoodData.author.id.equals(req.user.id)){
+					next()
+				} else{
+					res.redirect("back")
+				}
+			}
+		})
+	}
+	else {
+		res.redirect("back")
+	}
 }
 
 module.exports = router
