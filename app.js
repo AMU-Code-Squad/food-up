@@ -6,6 +6,7 @@ const mongoose = require("mongoose")
 const passport = require("passport")
 const expressSession = require("express-session")
 const LocalStrategy = require("passport-local")
+const methodOverride = require("method-override")
 const foodData = require("./models/foodup")
 const Comment = require("./models/comment")
 const User = require("./models/user")
@@ -29,6 +30,7 @@ mongoose.connect(
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static(__dirname + '/public'))
+app.use(methodOverride("_method"))
 app.use(expressSession({
     secret: "slfsjfhkdshgkfdsh",
     resave: false,
