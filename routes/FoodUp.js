@@ -4,7 +4,8 @@ const foodData = require("../models/foodup")
 
 
 //FoodUp route//
-router.get("/FoodUp", function(req, res){
+//SHOW route//
+router.get("/FoodUp", function(_req, res){
 	foodData.find({}, function(err, foodData){
 		if(err){
 			console.log(err)
@@ -14,7 +15,8 @@ router.get("/FoodUp", function(req, res){
 	})
 })
 
-router.get("/FoodUp/new", isLoggedIn, function(req, res){
+//CREATE food route//
+router.get("/FoodUp/new", isLoggedIn, function(_req, res){
 	res.render("food-up/new")
 })
 
@@ -32,8 +34,7 @@ router.post("/FoodUp", isLoggedIn, function(req, res){
 		image:  image,
 		author: author
 	}
-	// foodData.push(newfoodData)
-	foodData.create(newfoodData, function(err, newfoodData){
+	foodData.create(newfoodData, function(err, _newfoodData){
 		if(err){
 			console.log(err)
 		} else{
@@ -51,6 +52,33 @@ router.get("/FoodUp/:id", function(req, res){
 			res.render("food-up/show", {foundFoodData: foundFoodData})
 		}
 	})
+})
+
+//EDIT food route//
+router.get("/FoodUp/:id/edit",isLoggedIn, function(req, res){
+    foodData.findById(req.params.id, function(err, foundFoodData){
+		if(err){
+			res.redirect("/FoodUp/" + foodData.id)
+		} else{
+			res.render("food-up/edit", {foundFoodData: foundFoodData})
+		}
+	})
+})
+
+//UPDATE ROUTE//
+router.put("/FoodUp/:id", function(req, res){
+	const updatedFoodData = {
+		name: req.body.name,
+		description: req.body.description,
+		image: req.body.image
+	}
+    foodData.findByIdAndUpdate(req.params.id, updatedFoodData, function(err, updatedFoodData){
+        if(err){
+            res.redirect("/FoodUp")
+        } else{
+            res.redirect("/FoodUp/" + req.params.id)
+        }
+    })
 })
 
 

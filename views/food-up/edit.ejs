@@ -1,0 +1,30 @@
+<%- include("../partials/header") %>
+
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center;">Edit <%= foundFoodData.name %> </h1>
+
+        <div style=" width: 30%; margin: auto auto;">
+            <form action="/FoodUp/<%= foundFoodData.id %>?_method=PUT " method="POST">
+                <div class="form-group">
+                    <input class="form-control" type="text" value="<%= foundFoodData.name %> " name="name">
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" type="text" name="description"><%= foundFoodData.description %> </textarea>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" value="<%= foundFoodData.image %> " name="image">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit</button>
+                </div>
+            </form>
+            <a href="/FoodUp/<%= foundFoodData.id %> ">Go back</a>
+        </div>
+
+         
+    </div>
+</div>
+
+
+<%- include("../partials/footer") %> 
