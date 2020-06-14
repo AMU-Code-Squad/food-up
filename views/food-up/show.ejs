@@ -23,10 +23,12 @@
                     <p>
                         <em>Submitted by <%= foundFoodData.author.username %> </em>
                     </p>
-                    <a class="btn btn-warning" href="/FoodUp/<%= foundFoodData.id %>/edit ">Edit!</a>
-                    <form id="delete-form" class="pull-right" action="/FoodUp/<%= foundFoodData.id %>?_method=DELETE" method="POST">
-                        <button class="btn btn-danger">Delete</button>
-                    </form>
+                    <% if (currentUser && foundFoodData.author.id.equals(currentUser.id)) { %>
+                        <a class="btn btn-warning" href="/FoodUp/<%= foundFoodData.id %>/edit ">Edit!</a>
+                        <form id="delete-form" class="pull-right" action="/FoodUp/<%= foundFoodData.id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    <% } %>
                 </div>
             </div>
             <div class="well">
