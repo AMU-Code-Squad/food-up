@@ -17,7 +17,9 @@ const commentRoutes = require("./routes/comments")
 const foodUpRoutes = require("./routes/FoodUp")
 const indexRoute = require("./routes/index")
 
-seedDB()
+//seedDB()
+/* 
+*/
 
 //Using Dependencies
 mongoose.connect(
