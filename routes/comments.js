@@ -2,10 +2,10 @@ const express = require("express")
 const router  = express.Router()
 const foodData = require("../models/foodup")
 const Comment = require("../models/comment")
-
+const middleware = require("../middleware")
 
 //Comments route//
-router.get("/FoodUp/:id/comments/new", isLoggedIn, function(req, res){
+router.get("/FoodUp/:id/comments/new", middleware.isLoggedIn, function(req, res){
 	foodData.findById(req.params.id, function(err, foodData){
 		if(err){
 			console.log(err)
@@ -15,7 +15,7 @@ router.get("/FoodUp/:id/comments/new", isLoggedIn, function(req, res){
 	})
 })
 
-router.post("/FoodUp/:id/comments", isLoggedIn,function(req, res){
+router.post("/FoodUp/:id/comments", middleware.isLoggedIn,function(req, res){
 	foodData.findById(req.params.id, function(err, foodData){
 		if(err){
 			console.log(err)
@@ -37,13 +37,5 @@ router.post("/FoodUp/:id/comments", isLoggedIn,function(req, res){
 		}
 	})
 })
-
-//isLoggedIn Middleware
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
-        return next()
-    }
-    res.redirect("/login")
-}
 
 module.exports = router
