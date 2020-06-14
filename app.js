@@ -18,7 +18,12 @@ const foodUpRoutes = require("./routes/FoodUp")
 const indexRoute = require("./routes/index")
 
 //seedDB()
-/* 
+/* Commneting seedDB call for testing purpose
+You can uncomment seedDB() for some sample database
+But I will recommend to make your own as it will
+help you to create proper author associations.
+Currently authors are used in seedDB with fake id
+and that can be buggy for the application
 */
 
 //Using Dependencies
