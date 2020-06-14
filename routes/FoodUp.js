@@ -1,6 +1,7 @@
 const express = require("express")
 const router  = express.Router()
 const foodData = require("../models/foodup")
+const middleware = require("../middleware")
 
 //FoodUp route//
 //SHOW route//
@@ -15,11 +16,11 @@ router.get("/FoodUp", function(_req, res){
 })
 
 //CREATE food route//
-router.get("/FoodUp/new", isLoggedIn, function(_req, res){
+router.get("/FoodUp/new", middleware.isLoggedIn, function(_req, res){
 	res.render("food-up/new")
 })
 
-router.post("/FoodUp", isLoggedIn, function(req, res){
+router.post("/FoodUp", middleware.isLoggedIn, function(req, res){
 	const name = req.body.name
 	const description = req.body.description
 	const image = req.body.image
@@ -53,7 +54,7 @@ router.get("/FoodUp/:id", function(req, res){
 })
 
 //EDIT food route//
-router.get("/FoodUp/:id/edit",isFoodPostOnwer, function(req, res){
+router.get("/FoodUp/:id/edit", middleware.isFoodPostOnwer, function(req, res){
     foodData.findById(req.params.id, function(err, foundFoodData){
 		if(err){
 			res.redirect("/FoodUp/" + foodData.id)
@@ -64,7 +65,7 @@ router.get("/FoodUp/:id/edit",isFoodPostOnwer, function(req, res){
 })
 
 //UPDATE ROUTE//
-router.put("/FoodUp/:id",isFoodPostOnwer, function(req, res){
+router.put("/FoodUp/:id", middleware.isFoodPostOnwer, function(req, res){
 	const updatedFoodData = {
 		name: req.body.name,
 		description: req.body.description,
@@ -80,7 +81,7 @@ router.put("/FoodUp/:id",isFoodPostOnwer, function(req, res){
 })
 
 //DELETE ROUTE
-router.delete("/FoodUp/:id",isFoodPostOnwer, function(req, res){
+router.delete("/FoodUp/:id", middleware.isFoodPostOnwer, function(req, res){
     foodData.findByIdAndRemove(req.params.id, function(err){
         if(err){
             console.log(err)
@@ -89,33 +90,5 @@ router.delete("/FoodUp/:id",isFoodPostOnwer, function(req, res){
         }
     })
 })
-
-//isLoggedIn middleware
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
-        return next()
-    }
-    res.redirect("/login")
-}
-
-//isFoodPostOwner middleware
-function isFoodPostOnwer(req, res, next){
-	if(req.isAuthenticated()){
-		foodData.findById(req.params.id, function(err, foundFoodData){
-			if(err){
-				res.redirect("back")
-			} else{
-				if(foundFoodData.author.id.equals(req.user.id)){
-					next()
-				} else{
-					res.redirect("back")
-				}
-			}
-		})
-	}
-	else {
-		res.redirect("back")
-	}
-}
 
 module.exports = router
