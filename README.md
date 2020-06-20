@@ -1,4 +1,7 @@
-# Food - up 
+# Food - up
+
+![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)
+
 A social networking website for foodies!
 
 ## Tech used
