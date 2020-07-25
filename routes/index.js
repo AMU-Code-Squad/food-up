@@ -38,8 +38,9 @@ router.post("/login", passport.authenticate("local", {
 })
 
 router.get("/logout", function(req, res){
-    req.logout()
-    res.redirect("FoodUp")
+    req.logout();
+    req.flash("success","Successfully LoggedOut");
+    res.redirect("FoodUp");
 })
 
 function isLoggedIn(req, res, next){

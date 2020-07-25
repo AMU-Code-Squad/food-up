@@ -8,6 +8,7 @@ const expressSession = require("express-session")
 const LocalStrategy = require("passport-local")
 const methodOverride = require("method-override")
 const foodData = require("./models/foodup")
+const flash = require("connect-flash")
 const Comment = require("./models/comment")
 const User = require("./models/user")
 const seedDB = require("./seeds")
@@ -45,6 +46,8 @@ app.use(expressSession({
 }))
 
 
+app.use(flash());
+
 //Initializing Passport//
 app.use(passport.initialize())
 app.use(passport.session())
@@ -56,8 +59,11 @@ passport.deserializeUser(User.deserializeUser())
 
 app.set("view engine", "ejs")
 
+
 app.use(function(req, res, next){
 	res.locals.currentUser = req.user;
+	res.locals.error = req.flash("error");
+	res.locals.success = req.flash("success");
 	next();
 })
 
