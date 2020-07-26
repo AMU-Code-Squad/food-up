@@ -38,7 +38,8 @@ router.post("/FoodUp", middleware.isLoggedIn, function(req, res){
 		if(err){
 			console.log(err)
 		} else{
-			res.redirect("/FoodUp")
+			req.flash("success", "New Post added successfully");
+			res.redirect("/FoodUp");
 		}
 	})
 })
@@ -86,6 +87,7 @@ router.delete("/FoodUp/:id", middleware.isFoodPostOnwer, function(req, res){
         if(err){
             console.log(err)
         } else{
+			req.flash("error", "Post Deleted");
             res.redirect("/FoodUp")
         }
     })

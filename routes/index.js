@@ -18,12 +18,17 @@ router.post("/register", function(req, res){
 	let newUser = new User({username: req.body.username})
     User.register(newUser, req.body.password, function(err, user){
         if(err){
-			console.log(err)
-            return res.render("register")
-        }
+            console.log(err);
+            res.render("register");
+            
+        }else{
         passport.authenticate("local")(req, res, function(){
-            res.redirect("/FoodUp")
+            res.redirect("/FoodUp");
+            req.flash("success","Successfully Signed Up");
+            res.redirect("/FoodUp");
+        
         })
+    }
     })
 })
 
