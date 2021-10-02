@@ -1,33 +1,30 @@
-var foodData = require("../models/foodup")
+const foodData = require('../models/foodup');
 
 // all the middleare goes here
 var middlewareObj = {};
 
-middlewareObj.isFoodPostOnwer = function(req, res, next) {
-    if(req.isAuthenticated()){
-		foodData.findById(req.params.id, function(err, foundFoodData){
-			if(err){
-				res.redirect("back")
-			} else{
-				if(foundFoodData.author.id.equals(req.user.id)){
-					next()
-				} else{
-					res.redirect("back")
-				}
-			}
-		})
-	}
-	else {
-		res.redirect("back")
-	}
-}
+middlewareObj.isFoodPostOnwer = async (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    return res.redirect('back');
+  }
 
-
-middlewareObj.isLoggedIn = function(req, res, next){
-    if(req.isAuthenticated()){
-        return next()
+  try {
+    const foundFoodData = await foodData.findById(req.params.id);
+    if (foundFoodData.author.id.equals(req.user.id)) {
+      next();
+    } else {
+      res.redirect('back');
     }
-    res.redirect("/login")
-}
+  } catch (err) {
+    res.redirect('back');
+  }
+};
+
+middlewareObj.isLoggedIn = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
+};
 
 module.exports = middlewareObj;
