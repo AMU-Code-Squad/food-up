@@ -6,13 +6,9 @@ const passport = require('passport');
 const expressSession = require('express-session');
 const LocalStrategy = require('passport-local');
 const methodOverride = require('method-override');
-const foodData = require('./models/foodup');
 const flash = require('connect-flash');
-const Comment = require('./models/comment');
 const User = require('./models/user');
-const seedDB = require('./seeds');
 
-//seedDB()
 /* Commneting seedDB call for testing purpose
 You can uncomment seedDB() for some sample database
 But I will recommend to make your own as it will
@@ -20,6 +16,8 @@ help you to create proper author associations.
 Currently authors are used in seedDB with fake id
 and that can be buggy for the application
 */
+// const seedDB = require('./seeds');
+// seedDB()
 
 //Using Dependencies
 mongoose.connect('mongodb://localhost:27017/foodup', {
@@ -53,7 +51,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.set('view engine', 'ejs');
 
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   res.locals.error = req.flash('error');
   res.locals.success = req.flash('success');
@@ -69,6 +67,6 @@ app.use((req, res, next) => {
   res.status(404).render('error');
 });
 
-app.listen(process.env.PORT || 3000, function () {
+app.listen(process.env.PORT || 3000, () => {
   console.log('Food up Server Started at PORT: 3000');
 });
