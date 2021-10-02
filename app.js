@@ -12,11 +12,6 @@ const Comment = require('./models/comment');
 const User = require('./models/user');
 const seedDB = require('./seeds');
 
-//Requiring Routes//
-const commentRoutes = require('./routes/comments');
-const foodUpRoutes = require('./routes/FoodUp');
-const indexRoute = require('./routes/index');
-
 //seedDB()
 /* Commneting seedDB call for testing purpose
 You can uncomment seedDB() for some sample database
@@ -65,10 +60,10 @@ app.use(function (req, res, next) {
   next();
 });
 
-//Using Routes//
-app.use(indexRoute);
-app.use(foodUpRoutes);
-app.use(commentRoutes);
+// Routes
+app.use(require('./routes/index'));
+app.use(require('./routes/FoodUp'));
+app.use(require('./routes/comments'));
 
 app.use((req, res, next) => {
   res.status(404).render('error');
