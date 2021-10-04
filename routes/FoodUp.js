@@ -20,18 +20,18 @@ router.get('/FoodUp/new', middleware.isLoggedIn, (_req, res) => {
 });
 
 router.post('/FoodUp', middleware.isLoggedIn, async (req, res) => {
-  const { name, description, image } = req.body;
-  const author = {
-    id: req.user._id,
-    username: req.user.username,
-  };
-  const newfoodData = {
-    name,
-    description,
-    image,
-    author,
-  };
   try {
+    const { name, description, image } = req.body;
+    const author = {
+      id: req.user._id,
+      username: req.user.username,
+    };
+    const newfoodData = {
+      name,
+      description,
+      image,
+      author,
+    };
     await FoodData.create(newfoodData);
     res.redirect('/FoodUp');
   } catch (err) {
@@ -39,27 +39,26 @@ router.post('/FoodUp', middleware.isLoggedIn, async (req, res) => {
   }
 });
 
-router.get('/FoodUp/:id', (req, res) => {
-  FoodData.findById(req.params.id)
-    .populate('comments')
-    .exec(function (err, foundFoodData) {
-      if (err) {
-        console.log(err);
-      } else {
-        res.render('food-up/show', { foundFoodData: foundFoodData });
-      }
-    });
+router.get('/FoodUp/:id', async (req, res) => {
+  try {
+    const foundFoodData = await FoodData.findById(req.params.id)
+      .populate('comments')
+      .exec();
+    res.render('food-up/show', { foundFoodData });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 //EDIT food route//
-router.get('/FoodUp/:id/edit', middleware.isFoodPostOnwer, function (req, res) {
-  FoodData.findById(req.params.id, function (err, foundFoodData) {
-    if (err) {
-      res.redirect('/FoodUp/' + foodData.id);
-    } else {
-      res.render('food-up/edit', { foundFoodData: foundFoodData });
-    }
-  });
+router.get('/FoodUp/:id/edit', middleware.isFoodPostOnwer, async (req, res) => {
+  const { id } = req.params;
+  try {
+    const foundFoodData = await FoodData.findById(req.params.id);
+    res.render('food-up/edit', { foundFoodData });
+  } catch (err) {
+    res.redirect('/FoodUp/' + id);
+  }
 });
 
 //UPDATE ROUTE//
@@ -80,14 +79,13 @@ router.put('/FoodUp/:id', middleware.isFoodPostOnwer, async (req, res) => {
 });
 
 //DELETE ROUTE
-router.delete('/FoodUp/:id', middleware.isFoodPostOnwer, function (req, res) {
-  FoodData.findByIdAndRemove(req.params.id, function (err) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.redirect('/FoodUp');
-    }
-  });
+router.delete('/FoodUp/:id', middleware.isFoodPostOnwer, async (req, res) => {
+  try {
+    await FoodData.findByIdAndRemove(req.params.id);
+    res.redirect('/FoodUp');
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 module.exports = router;
