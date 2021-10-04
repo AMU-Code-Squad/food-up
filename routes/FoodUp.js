@@ -1,51 +1,46 @@
 const express = require('express');
 const router = express.Router();
-const foodData = require('../models/foodup');
+const FoodData = require('../models/foodup');
 const middleware = require('../middleware');
 
 //FoodUp route//
 //SHOW route//
-router.get('/FoodUp', function (_req, res) {
-  foodData.find({}, function (err, foodData) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render('food-up/index', { foodData: foodData });
-    }
-  });
+router.get('/FoodUp', async (_req, res) => {
+  try {
+    const foodData = await FoodData.find({});
+    res.render('food-up/index', { foodData });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 //CREATE food route//
-router.get('/FoodUp/new', middleware.isLoggedIn, function (_req, res) {
+router.get('/FoodUp/new', middleware.isLoggedIn, (_req, res) => {
   res.render('food-up/new');
 });
 
-router.post('/FoodUp', middleware.isLoggedIn, function (req, res) {
-  const name = req.body.name;
-  const description = req.body.description;
-  const image = req.body.image;
+router.post('/FoodUp', middleware.isLoggedIn, async (req, res) => {
+  const { name, description, image } = req.body;
   const author = {
     id: req.user._id,
     username: req.user.username,
   };
   const newfoodData = {
-    name: name,
-    description: description,
-    image: image,
-    author: author,
+    name,
+    description,
+    image,
+    author,
   };
-  foodData.create(newfoodData, function (err, _newfoodData) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.redirect('/FoodUp');
-    }
-  });
+  try {
+    await FoodData.create(newfoodData);
+    res.redirect('/FoodUp');
+  } catch (err) {
+    console.log(err);
+  }
 });
 
-router.get('/FoodUp/:id', function (req, res) {
-  foodData
-    .findById(req.params.id)
+router.get('/FoodUp/:id', (req, res) => {
+  FoodData.findById(req.params.id)
     .populate('comments')
     .exec(function (err, foundFoodData) {
       if (err) {
@@ -58,7 +53,7 @@ router.get('/FoodUp/:id', function (req, res) {
 
 //EDIT food route//
 router.get('/FoodUp/:id/edit', middleware.isFoodPostOnwer, function (req, res) {
-  foodData.findById(req.params.id, function (err, foundFoodData) {
+  FoodData.findById(req.params.id, function (err, foundFoodData) {
     if (err) {
       res.redirect('/FoodUp/' + foodData.id);
     } else {
@@ -68,28 +63,25 @@ router.get('/FoodUp/:id/edit', middleware.isFoodPostOnwer, function (req, res) {
 });
 
 //UPDATE ROUTE//
-router.put('/FoodUp/:id', middleware.isFoodPostOnwer, function (req, res) {
-  const updatedFoodData = {
-    name: req.body.name,
-    description: req.body.description,
-    image: req.body.image,
-  };
-  foodData.findByIdAndUpdate(
-    req.params.id,
-    updatedFoodData,
-    function (err, updatedFoodData) {
-      if (err) {
-        res.redirect('/FoodUp');
-      } else {
-        res.redirect('/FoodUp/' + req.params.id);
-      }
-    }
-  );
+router.put('/FoodUp/:id', middleware.isFoodPostOnwer, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, description, image } = req.body;
+    const updatedFoodData = {
+      name,
+      description,
+      image,
+    };
+    await FoodData.findByIdAndUpdate(id, updatedFoodData);
+    res.redirect('/FoodUp/' + id);
+  } catch (err) {
+    res.redirect('/FoodUp');
+  }
 });
 
 //DELETE ROUTE
 router.delete('/FoodUp/:id', middleware.isFoodPostOnwer, function (req, res) {
-  foodData.findByIdAndRemove(req.params.id, function (err) {
+  FoodData.findByIdAndRemove(req.params.id, function (err) {
     if (err) {
       console.log(err);
     } else {
