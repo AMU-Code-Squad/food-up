@@ -20,10 +20,11 @@ router.get(
 
 router.post('/FoodUp/:id/comments', middleware.isLoggedIn, async (req, res) => {
   try {
+    const { _id, username } = req.user;
     const foodData = await foodData.findById(req.params.id);
     const comment = await Comment.create(req.body.comment);
-    comment.author.id = req.user._id;
-    comment.author.username = req.user.username;
+    comment.author.id = _id;
+    comment.author.username = username;
     await comment.save();
 
     foodData.comments.push(comment);
