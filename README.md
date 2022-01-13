@@ -28,7 +28,7 @@
 
 * Go to the official [download page](https://git-scm.com/downloads) and download the installer for your OS.
 * Proceed with the installation step as recommended by the installer. ⚠️It's not recommended to enable settings not recommended by the installer by default.
-* Git will be installed on your system, you can check if the installation was successful or not by running ```git --version```.
+* Git will be installed on your system, By running ```git --version``` you can verify the success of the installation.
 
 ### 🔷 ExpressJs (Optional)
 
