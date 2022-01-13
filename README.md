@@ -14,7 +14,7 @@
 
 ⚠️To begin with the Node JS installation process, first you need to make sure you have sufficient space and your RAM is at least 4GB
 
-#### Steps to set up nodeJS
+#### Steps to set up NodeJS
 
 * Go to the official download page of [NodeJS](https://nodejs.org/en/download/)
 * In the downloads page, you will see various versions of Node. All you need to do is, click on the box, suitable to your system configurations (MAC, Windows Or Linux).
@@ -55,6 +55,6 @@
 * For Windows - ```npm install -g --force nodemon```
 * For Linux, run ```sudo npm install -g --force nodemon```
 * Run ```npm install``` in the home directory, to let npm install all the essential packages from package.json
-* Finally! To runt the project on your systme, type ```nodemon app.js``` on the terminal and view the site on localhost:3000 🥳
+* Finally! To runt the project on your systme, type ```nodemon app.js``` on the terminal and view the site on ```http://localhost:3000/``` 🥳
 
 > If You are a contributor in this project, Be sure to add your name on https://amu-code-squad.github.io 😎
