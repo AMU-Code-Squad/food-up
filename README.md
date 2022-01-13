@@ -8,7 +8,7 @@
 - Express JS
 - MongoDB
 
-## Requirements For Running The Project On Your System
+## Requirements For Running The Project On Your System 👨🏻‍💻
 
 ### 🔷 NodeJs
 
