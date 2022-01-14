@@ -23,6 +23,7 @@ and that can be buggy for the application
 mongoose.connect('mongodb://localhost:27017/foodup', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 
 app.use(express.json());
