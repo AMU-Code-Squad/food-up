@@ -16,8 +16,8 @@ help you to create proper author associations.
 Currently authors are used in seedDB with fake id
 and that can be buggy for the application
 */
-// const seedDB = require('./seeds');
-// seedDB()
+const seedDB = require('./seeds');
+seedDB()
 
 //Using Dependencies
 mongoose.connect('mongodb://localhost:27017/foodup', {
@@ -68,6 +68,7 @@ app.use((req, res, next) => {
   res.status(404).render('error');
 });
 
-app.listen(process.env.PORT || 3001, () => {
+//changed listening port from 3001 to 3000 to match with the log
+app.listen(process.env.PORT || 3000, () => {
   console.log('Food up Server Started at PORT: 3000');
 });
