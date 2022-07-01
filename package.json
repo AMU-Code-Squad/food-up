@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "author": "AMU Code Squad",
   "license": "ISC",
@@ -13,7 +13,7 @@
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
     "ejs": "^3.0.2",
-    "express": "^4.17.1",
+    "express": "^4.18.1",
     "express-session": "^1.17.1",
     "method-override": "^3.0.0",
     "mongoose": "^5.9.7",
@@ -22,6 +22,6 @@
     "passport-local-mongoose": "^6.0.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.16"
   }
 }
