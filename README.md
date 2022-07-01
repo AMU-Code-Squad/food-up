@@ -20,7 +20,7 @@
 * In the downloads page, you will see various versions of Node. All you need to do is, click on the box, suitable to your system configurations (MAC, Windows Or Linux).
 * Once you have successfully downloaded the software, go to the downloaded file, and double-click on it.
 * As soon as you click on the file, an installation wizard will come up. Select ‘Next’ and move further with the installation.
-* After the installation is done, NodeJs is successfuly set up. You can run ```node --version``` to confirm the installation.
+* After the installation is done, NodeJs is successfully set up. You can run ```node --version``` to confirm the installation.
 
 ### 🔷 Git
 
@@ -34,7 +34,7 @@
 
 #### Steps to set up ExpressJS
 
-* Since you have already got NodeJS installed, we can take help of the Node Package Manager (**NPM**) ,to proceed with the installation of ExpressJS.
+* Since you have already got NodeJS installed, we can take the help of the Node Package Manager (**NPM**), to proceed with the installation of ExpressJS.
 * Go to your terminal and run the command ```npm install express```
 * The node package manager will install the latest version of ExpressJS on your system.
 
@@ -55,6 +55,6 @@
 * For Windows - ```npm install -g --force nodemon```
 * For Linux, run ```sudo npm install -g --force nodemon```
 * Run ```npm install``` in the home directory, to let npm install all the essential packages from package.json
-* Finally! To runt the project on your systme, type ```nodemon app.js``` on the terminal and view the site on ```http://localhost:3000/``` 🥳
+* Finally! To run the project on your system, type ```nodemon app.js``` on the terminal and view the site on ```http://localhost:3000/``` 🥳
 
 > If You are a contributor in this project, Be sure to add your name on https://amu-code-squad.github.io 😎
