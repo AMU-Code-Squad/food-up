@@ -20,7 +20,7 @@ router.post('/register', async (req, res) => {
     await User.register(newUser, password);
 
     passport.authenticate('local')(req, res, function () {
-      return res.redirect('/FoodUp');
+      return {req.flash('success', 'New User Logged In!'), res.redirect('/FoodUp') }
     });
   } catch (err) {
     console.log(err);
@@ -38,7 +38,9 @@ router.post(
     successRedirect: '/FoodUp',
     failureRedirect: '/login',
   }),
-  (req, res) => {}
+  (req, res) => {
+    req.flash('success', 'Successfully LoggedIn');
+  }
 );
 
 router.get('/logout', (req, res) => {
