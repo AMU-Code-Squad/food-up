@@ -4,13 +4,16 @@
 
 ## Technologies Used👨🏻‍💻
 
-- Node JS
-- Express JS
-- MongoDB
+- [Node JS](https://nodejs.org/en/)
+- [Express JS](https://expressjs.com/)
+- [MongoDB](https://www.mongodb.com/)
 
 ## Requirements For Running The Project On Your System 👨🏻‍💻
 
 ### 🔷 NodeJs
+
+Node.js is an open-source, cross-platform, back-end JavaScript runtime environment that runs on a JavaScript Engine and executes JavaScript code outside a web browser, which was designed to build scalable network applications.
+
 
 ⚠️To begin with the Node JS installation process, first you need to make sure you have sufficient space and your RAM is at least 4GB
 
@@ -24,13 +27,20 @@
 
 ### 🔷 Git
 
+Git is free and open source software for distributed version control: tracking changes in any set of files, usually used for coordinating work among programmers collaboratively developing source code during software development.
+
+
 #### Steps to set up Git
 
 * Go to the official [download page](https://git-scm.com/downloads) and download the installer for your OS.
-* Proceed with the installation step as recommended by the installer. ⚠️It's not recommended to enable settings not recommended by the installer by default.
+* Proceed with the installation step as recommended by the installer. 
+⚠️It's not recommended to enable settings not recommended by the installer by default.
 * Git will be installed on your system, By running ```git --version``` you can verify the success of the installation.
 
-### 🔷 ExpressJs (Optional)
+
+### 🔷 Express JS (Optional)
+Express.js, or simply Express, is a back end web application framework for building RESTful APIs with Node.js, released as free and open-source software under the MIT License. It is designed for building web applications and APIs. It has been called the de facto standard server framework for Node JS.
+
 
 #### Steps to set up ExpressJS
 
