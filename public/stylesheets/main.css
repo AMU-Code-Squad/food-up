@@ -9,3 +9,13 @@
 #delete-form{
     display: inline;
 }
+
+.btn-primary , .btn-success{
+    background: #f15126;
+    border: none;
+}
+
+.btn-primary:hover  , 
+.btn-success:hover {
+background: #f99b1c;
+}
