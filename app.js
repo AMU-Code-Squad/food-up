@@ -68,6 +68,9 @@ app.use((req, res, next) => {
   res.status(404).render('error');
 });
 
-app.listen(process.env.PORT || 3001, () => {
-  console.log('Food up Server Started at PORT: 3000');
+let port = 3000
+app.listen(port = process.env.PORT || 3001, () => {
+  console.log('Food up Server Started at PORT: ' + port);
 });
+
+
