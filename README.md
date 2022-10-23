@@ -58,4 +58,4 @@
 * Finally! To run the project on your system, type ```nodemon app.js``` on the terminal and view the site on ```http://localhost:3000/``` 🥳
 
 > If You are a contributor in this project, Be sure to add your name on https://amu-code-squad.github.io 
-😀😀😀😀😀
+😀😀😀
