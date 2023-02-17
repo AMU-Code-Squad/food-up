@@ -69,5 +69,6 @@ app.use((req, res, next) => {
 });
 
 app.listen(process.env.PORT || 3001, () => {
-  console.log('Food up Server Started at PORT: 3000');
+  console.log('Food up Server Started at PORT: 3001');
+  console.log('http://localhost:3001');
 });

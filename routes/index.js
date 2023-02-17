@@ -37,6 +37,7 @@ router.post(
   passport.authenticate('local', {
     successRedirect: '/FoodUp',
     failureRedirect: '/login',
+    failureFlash: 'No account exists for this username. Please sign-up first'
   }),
   (req, res) => {}
 );
