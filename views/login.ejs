@@ -1,11 +1,33 @@
-<%- include("./partials/header") %> 
+<%- include("./partials/header") %>
+<div style="text-align: center">
+  <h1 style="padding-top: 4rem">Login</h1>
 
-<h1>Login!</h1>
-
-<form action="/login" method="POST">
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <button>Login</button>
-</form>
-
+  <form action="/login" method="POST" style="padding: 4rem">
+    <input
+      type="text"
+      name="username"
+      placeholder="Username"
+      style="padding: 1rem; margin-bottom: 2rem"
+    />
+    <br />
+    <input
+      type="password"
+      name="password"
+      placeholder="Password"
+      style="padding: 1rem; margin-bottom: 4rem"
+    />
+    <br />
+    <button
+      style="
+        padding: 1rem;
+        border-radius: 40px;
+        border-width: 1px;
+        background-color: rgb(35, 151, 151);
+        color: #ffffff;
+      "
+    >
+      Login
+    </button>
+  </form>
+</div>
 <%- include("./partials/footer") %>
