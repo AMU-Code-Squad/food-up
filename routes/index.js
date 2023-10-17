@@ -20,10 +20,12 @@ router.post('/register', async (req, res) => {
     await User.register(newUser, password);
 
     passport.authenticate('local')(req, res, function () {
+      req.flash('success', 'Successfully Registered');
       return res.redirect('/FoodUp');
     });
   } catch (err) {
     console.log(err);
+    req.flash('error', err.message);
     res.render('register');
   }
 });
@@ -36,14 +38,15 @@ router.post(
   '/login',
   passport.authenticate('local', {
     successRedirect: '/FoodUp',
+    successFlash : "Successfully Logged In",
     failureRedirect: '/login',
-  }),
-  (req, res) => {}
+    failureFlash : "Failed to Login, Please Try Again",
+  })
 );
 
 router.get('/logout', (req, res) => {
   req.logout();
-  req.flash('success', 'Successfully LoggedOut');
+  req.flash('success', 'Successfully Logged Out');
   res.redirect('FoodUp');
 });
 
