@@ -38,14 +38,15 @@ router.post(
   '/login',
   passport.authenticate('local', {
     successRedirect: '/FoodUp',
+    successFlash : "Successfully Logged In",
     failureRedirect: '/login',
-  }),
-  (req, res) => {}
+    failureFlash : "Failed to Login, Please Try Again",
+  })
 );
 
 router.get('/logout', (req, res) => {
   req.logout();
-  req.flash('success', 'Successfully LoggedOut');
+  req.flash('success', 'Successfully Logged Out');
   res.redirect('FoodUp');
 });
 
