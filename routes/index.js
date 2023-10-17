@@ -20,10 +20,12 @@ router.post('/register', async (req, res) => {
     await User.register(newUser, password);
 
     passport.authenticate('local')(req, res, function () {
+      req.flash('success', 'Successfully Registered');
       return res.redirect('/FoodUp');
     });
   } catch (err) {
     console.log(err);
+    req.flash('error', err.message);
     res.render('register');
   }
 });
