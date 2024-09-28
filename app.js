@@ -9,6 +9,7 @@ const methodOverride = require('method-override');
 const flash = require('connect-flash');
 const User = require('./models/user');
 
+
 /* Commneting seedDB call for testing purpose
 You can uncomment seedDB() for some sample database
 But I will recommend to make your own as it will
@@ -20,7 +21,7 @@ and that can be buggy for the application
 // seedDB()
 
 //Using Dependencies
-mongoose.connect('mongodb://localhost:27017/foodup', {
+mongoose.connect('mongodb://127.0.0.1:27017/foodup', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
@@ -44,9 +45,7 @@ app.use(flash());
 //Initializing Passport//
 app.use(passport.initialize());
 app.use(passport.session());
-
 passport.use(new LocalStrategy(User.authenticate()));
-
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -69,5 +68,5 @@ app.use((req, res, next) => {
 });
 
 app.listen(process.env.PORT || 3001, () => {
-  console.log('Food up Server Started at PORT: 3000');
+  console.log('Food up Server Started at PORT: 3001');
 });

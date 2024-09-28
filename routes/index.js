@@ -13,39 +13,40 @@ router.get('/register', (req, res) => {
   res.render('register');
 });
 
-router.post('/register', async (req, res) => {
-  try {
-    const { username, password } = req.body;
-    let newUser = new User({ username });
-    await User.register(newUser, password);
-
-    passport.authenticate('local')(req, res, function () {
-      return res.redirect('/FoodUp');
-    });
-  } catch (err) {
-    console.log(err);
-    res.render('register');
-  }
+router.post('/register', (req, res) => {
+  const newUser = new User({ username: req.body.username });
+  User.register(newUser, req.body.password, (err, user) => {
+      if (err) {
+          req.flash('error', err.message);
+          return res.redirect('/register');
+      }
+      passport.authenticate('local')(req, res, () => {
+          req.flash('success', 'Welcome to FoodUp, ' + user.username);
+          res.redirect('/');
+      });
+  });
 });
+
 
 router.get('/login', (req, res) => {
   res.render('login');
 });
 
-router.post(
-  '/login',
-  passport.authenticate('local', {
-    successRedirect: '/FoodUp',
-    failureRedirect: '/login',
-  }),
-  (req, res) => {}
-);
+router.post('/login', passport.authenticate('local', {
+  successRedirect: '/',
+  successFlash: 'Welcome back!',
+  failureRedirect: '/login',
+  failureFlash: 'Invalid username or password.'
+}));
 
 router.get('/logout', (req, res) => {
-  req.logout();
-  req.flash('success', 'Successfully LoggedOut');
-  res.redirect('FoodUp');
+  req.logout(); // Ensure the user is logged out
+  req.flash('success', 'You have successfully logged out.'); // Set flash message
+  res.redirect('/'); // Redirect to the home page or wherever appropriate
 });
+
+
+
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {

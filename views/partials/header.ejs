@@ -24,15 +24,22 @@
                 </div>
             </div>
         </nav>
-<!-- Navbar End -->
-<%if(error && error.length > 0) {%>
-    <div class="alert alert-danger" role="alert">
-      <%= error%>
-    </div>
-    <%}%>
-    <%if(success && success.length > 0) {%>
-    <div class="alert alert-success" role="alert">
-      <%= success%>
-    </div>
-    <%}%>
-      </div>
+        <!-- Navbar End -->
+
+        <!-- Flash Messages Start -->
+        <% if (error && error.length > 0) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+        <% } %>
+
+        <% if (success && success.length > 0) { %>
+            <div class="alert alert-success" role="alert">
+                <%= success %>
+            </div>
+        <% } %>
+        <!-- Flash Messages End -->
+
+        <!-- Content goes here -->
+    </body>
+</html>
